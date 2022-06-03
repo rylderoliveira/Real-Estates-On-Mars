@@ -17,24 +17,29 @@
 
 package com.example.android.marsrealestate.network
 
-import com.google.gson.JsonArray
-import com.google.gson.JsonObject
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
 private const val BASE_URL = "https://mars.udacity.com/"
 
 private val retrofit: Retrofit = Retrofit.Builder()
     .baseUrl(BASE_URL)
-    .addConverterFactory(GsonConverterFactory.create())
+    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+    .addConverterFactory(MoshiConverterFactory.create())
     .build()
 
 interface MarsApiService {
     @GET("realestate")
-    fun getProperties():
-            Call<String>
+    fun getPropertiesAsync():
+            Deferred<List<MarsProperty>>
 }
 
 object MarsApi {

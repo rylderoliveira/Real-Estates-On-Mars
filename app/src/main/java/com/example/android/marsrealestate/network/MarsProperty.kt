@@ -17,4 +17,11 @@
 
 package com.example.android.marsrealestate.network
 
-class MarsProperty()
+import com.google.gson.annotations.SerializedName
+
+data class MarsProperty(
+    val id: String,
+    val price: Double,
+    val img_scr: String,
+    val type: String
+)
